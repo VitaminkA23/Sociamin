@@ -1,0 +1,231 @@
+/* ══════════════════════════════════════════
+   CHAT LIST PANEL
+═══════════════════════════════════════════ */
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ── Header ── */
+.header {
+  padding: 20px 16px 14px;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  color: var(--color-brand);
+  letter-spacing: -0.3px;
+}
+
+.composeBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-brand);
+  transition: background 130ms ease, color 130ms ease;
+  flex-shrink: 0;
+}
+
+.composeBtn:hover {
+  background: rgba(31, 90, 73, 0.1);
+  color: var(--color-brand);
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-input);
+  padding: 9px 12px;
+  transition: border-color 150ms ease;
+}
+
+.searchBar:focus-within {
+  border-color: var(--color-brand-light);
+}
+
+.searchIcon {
+  color: var(--color-muted);
+  flex-shrink: 0;
+}
+
+.searchInput {
+  flex: 1;
+  background: none;
+  border: none;
+  font-size: 13.5px;
+  color: var(--color-text);
+  min-width: 0;
+}
+
+.searchInput::placeholder {
+  color: var(--color-placeholder);
+}
+
+/* ── List ── */
+.list {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+/* ── Chat item ── */
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 13px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(176, 206, 188, 0.45);
+  border-left: 3px solid transparent;
+  transition: background 130ms ease, border-left-color 130ms ease;
+  cursor: pointer;
+}
+
+.item:hover {
+  background: rgba(211, 228, 219, 0.5);
+}
+
+.itemActive {
+  background: rgba(31, 90, 73, 0.06) !important;
+  border-left-color: var(--color-brand);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.time {
+  font-size: 11px;
+  color: var(--color-muted);
+  flex-shrink: 0;
+}
+
+.preview {
+  font-size: 13px;
+  color: var(--color-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.youPrefix {
+  color: var(--color-brand-light);
+  font-weight: 500;
+}
+
+.badge {
+  background: var(--color-accent);
+  color: var(--color-brand);
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 2px 6px;
+  flex-shrink: 0;
+  min-width: 18px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ── Empty state ── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 48px 20px;
+  color: var(--color-muted);
+  font-size: 13.5px;
+  text-align: center;
+}
+
+.emptyIcon {
+  color: var(--color-brand-light);
+  opacity: 0.4;
+}
+
+/* ══════════════════════════════════════════
+   SKELETON
+═══════════════════════════════════════════ */
+.skeletonItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  border-bottom: 1px solid rgba(176, 206, 188, 0.45);
+}
+
+.skeletonAvatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, #e8f0ec 25%, #d6e6dc 50%, #e8f0ec 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonLines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeletonLine {
+  height: 11px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #e8f0ec 25%, #d6e6dc 50%, #e8f0ec 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonLineMd { width: 60%; }
+.skeletonLineSm { width: 80%; height: 10px; }
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

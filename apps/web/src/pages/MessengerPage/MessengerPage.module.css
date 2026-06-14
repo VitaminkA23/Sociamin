@@ -1,0 +1,8 @@
+.wrapper {
+  grid-column: 2 / -1;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .wrapper { grid-column: 1 / -1; }
+}

@@ -1,0 +1,170 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String?   @unique
+  phoneNumber  String?   @unique @map("phone_number")
+  passwordHash String    @map("password_hash")
+  displayName  String?   @map("display_name")
+  bio          String?
+  avatarUrl    String?   @map("avatar_url")
+  location     String?
+  emailNotifications Boolean  @default(true)  @map("email_notifications")
+  pushNotifications  Boolean  @default(true)  @map("push_notifications")
+  isPrivateProfile   Boolean  @default(false) @map("is_private_profile")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  posts    Post[]
+  likes    Like[]
+  comments Comment[]
+
+  chatParticipants    ChatParticipant[]
+  sentMessages        Message[]
+  sentFriendships     Friendship[]      @relation("SentFriendships")
+  receivedFriendships Friendship[]      @relation("ReceivedFriendships")
+  notifications       Notification[]
+
+  @@map("users")
+}
+
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+}
+
+model Friendship {
+  id          String           @id @default(uuid())
+  requesterId String           @map("requester_id")
+  addresseeId String           @map("addressee_id")
+  status      FriendshipStatus @default(PENDING)
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @updatedAt @map("updated_at")
+
+  requester User @relation("SentFriendships",      fields: [requesterId], references: [id], onDelete: Cascade)
+  addressee User @relation("ReceivedFriendships",  fields: [addresseeId], references: [id], onDelete: Cascade)
+
+  @@unique([requesterId, addresseeId])
+  @@index([addresseeId])
+  @@index([status])
+  @@map("friendships")
+}
+
+model Post {
+  id        String    @id @default(uuid())
+  content   String
+  imageUrl  String?   @map("image_url")
+  authorId  String    @map("author_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  author   User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  likes    Like[]
+  comments Comment[]
+
+  @@index([authorId])
+  @@index([createdAt(sort: Desc)])
+  @@map("posts")
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  postId    String   @map("post_id")
+  userId    String   @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, userId])
+  @@index([userId])
+  @@map("likes")
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  postId    String   @map("post_id")
+  userId    String   @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([postId, createdAt])
+  @@map("comments")
+}
+
+model ChatRoom {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  participants ChatParticipant[]
+  messages     Message[]
+
+  @@map("chat_rooms")
+}
+
+model ChatParticipant {
+  id         String @id @default(uuid())
+  chatRoomId String @map("chat_room_id")
+  userId     String @map("user_id")
+
+  chatRoom ChatRoom @relation(fields: [chatRoomId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([chatRoomId, userId])
+  @@index([userId])
+  @@map("chat_participants")
+}
+
+model Message {
+  id          String   @id @default(uuid())
+  chatRoomId  String   @map("chat_room_id")
+  senderId    String   @map("sender_id")
+  textContent String   @map("text_content")
+  isRead      Boolean  @default(false) @map("is_read")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  chatRoom ChatRoom @relation(fields: [chatRoomId], references: [id], onDelete: Cascade)
+  sender   User     @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([chatRoomId, createdAt(sort: Desc)])
+  @@map("messages")
+}
+
+model Notification {
+  id         String   @id @default(uuid())
+  type       String
+  message    String
+  isRead     Boolean  @default(false)
+  userId     String
+  senderId   String   @default("")
+  senderName String   @default("")
+  entityId   String   @default("")
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@index([userId, isRead])
+  @@map("notifications")
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt(sort: Desc)])
+  @@map("contact_messages")
+}

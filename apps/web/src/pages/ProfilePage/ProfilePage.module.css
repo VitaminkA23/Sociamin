@@ -1,0 +1,553 @@
+/* ══════════════════════════════════════════
+   PROFILE PAGE  (spans columns 2 → end)
+═══════════════════════════════════════════ */
+.page {
+  grid-column: 2 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+/* ══════════════════════════════════════════
+   HEADER CARD
+═══════════════════════════════════════════ */
+.headerCard {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 28px 28px 24px;
+  display: flex;
+  gap: 22px;
+  align-items: flex-start;
+}
+
+/* ── Avatar ── */
+.avatarWrap {
+  flex-shrink: 0;
+  position: relative;
+}
+
+.avatarEditWrap {
+  position: relative;
+  display: inline-block;
+}
+
+.avatarEditBtn {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-brand);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2.5px solid #fff;
+  cursor: pointer;
+  transition: background 150ms;
+  box-shadow: 0 2px 8px rgba(31, 90, 73, 0.3);
+}
+
+.avatarEditBtn:hover { background: var(--color-brand-mid); }
+
+.avatarPopover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 200;
+  background: var(--color-white);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(31, 90, 73, 0.18);
+  padding: 16px;
+  width: 280px;
+  border: 1px solid var(--color-border);
+}
+
+.avatarPopoverTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-brand);
+  margin-bottom: 10px;
+}
+
+.avatarPopoverInput {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1.5px solid var(--color-border);
+  background: var(--color-bg);
+  font-size: 13px;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  margin-bottom: 12px;
+  transition: border-color 150ms;
+}
+
+.avatarPopoverInput:focus {
+  border-color: var(--color-brand-light);
+  outline: none;
+}
+
+.avatarPopoverInput::placeholder { color: var(--color-placeholder); }
+
+.avatarPopoverActions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.avatarPopoverCancel {
+  padding: 7px 14px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--color-muted);
+  border: 1.5px solid var(--color-border);
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 130ms, border-color 130ms;
+}
+
+.avatarPopoverCancel:hover {
+  color: var(--color-brand);
+  border-color: var(--color-brand-light);
+}
+
+.avatarPopoverSave {
+  padding: 7px 14px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-brand);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 130ms, opacity 130ms;
+}
+
+.avatarPopoverSave:hover:not(:disabled) { background: var(--color-brand-mid); }
+.avatarPopoverSave:disabled { opacity: 0.6; cursor: default; }
+
+.avatarCircle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
+  font-family: var(--font-sans);
+  flex-shrink: 0;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Info ── */
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  color: var(--color-brand);
+  letter-spacing: -0.4px;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+.handle {
+  font-size: 13.5px;
+  color: var(--color-muted);
+  margin-bottom: 10px;
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.bio {
+  font-size: 14.5px;
+  color: var(--color-text);
+  line-height: 1.6;
+  max-width: 540px;
+}
+
+/* ── Actions ── */
+.actions {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+  padding-top: 4px;
+}
+
+/* Friend count pill */
+.statPill {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-brand-light);
+  background: rgba(31, 90, 73, 0.07);
+  border-radius: 20px;
+  padding: 4px 12px;
+  white-space: nowrap;
+}
+
+/* ── Buttons ── */
+.btnAdd {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  border-radius: var(--radius-btn);
+  background: var(--color-brand);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  transition: background 150ms ease, opacity 150ms ease;
+  white-space: nowrap;
+}
+.btnAdd:hover:not(:disabled) { background: var(--color-brand-mid); }
+.btnAdd:disabled { opacity: 0.6; cursor: default; }
+
+.btnAccept {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  border-radius: var(--radius-btn);
+  background: var(--color-accent);
+  color: var(--color-brand);
+  font-size: 13.5px;
+  font-weight: 700;
+  transition: background 150ms ease;
+  white-space: nowrap;
+}
+.btnAccept:hover { background: var(--color-accent-hover); }
+
+.btnPending {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  border-radius: var(--radius-btn);
+  border: 1.5px solid var(--color-border);
+  background: transparent;
+  color: var(--color-muted);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: default;
+  white-space: nowrap;
+}
+
+.btnFriends {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  border-radius: var(--radius-btn);
+  border: 1.5px solid var(--color-brand-light);
+  background: transparent;
+  color: var(--color-brand);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: default;
+  white-space: nowrap;
+}
+
+/* ══════════════════════════════════════════
+   CONTENT GRID (edit form + friends)
+═══════════════════════════════════════════ */
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.contentFull {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+/* ── Shared card ── */
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+}
+
+.cardTitle {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  color: var(--color-brand);
+  letter-spacing: -0.2px;
+  margin-bottom: 18px;
+}
+
+/* ══════════════════════════════════════════
+   EDIT PROFILE FORM
+═══════════════════════════════════════════ */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 16px;
+}
+
+.formGroup:last-of-type { margin-bottom: 0; }
+
+.label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-brand-light);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-input);
+  padding: 10px 13px;
+  font-size: 13.5px;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  transition: border-color 150ms ease;
+  resize: none;
+}
+
+.input::placeholder,
+.textarea::placeholder { color: var(--color-placeholder); }
+
+.input:focus,
+.textarea:focus { border-color: var(--color-brand-light); }
+
+.textarea { min-height: 90px; line-height: 1.55; }
+
+.charCount {
+  font-size: 11.5px;
+  color: var(--color-placeholder);
+  text-align: right;
+  margin-top: 3px;
+}
+
+.charCountWarn { color: var(--color-error); }
+
+.saveRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.btnSave {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  border-radius: var(--radius-btn);
+  background: var(--color-brand);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  transition: background 150ms ease, opacity 150ms ease;
+}
+.btnSave:hover:not(:disabled) { background: var(--color-brand-mid); }
+.btnSave:disabled { opacity: 0.6; cursor: default; }
+
+.savedBadge {
+  font-size: 12.5px;
+  color: var(--color-brand-light);
+  font-weight: 500;
+}
+
+/* ══════════════════════════════════════════
+   FRIENDS LIST
+═══════════════════════════════════════════ */
+.friendsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.friendItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1.5px solid var(--color-border);
+  background: var(--color-bg);
+  transition: background 130ms ease, border-color 130ms ease;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.friendItem:hover {
+  background: rgba(211, 228, 219, 0.6);
+  border-color: var(--color-brand-light);
+}
+
+.friendName {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.friendSub {
+  font-size: 11.5px;
+  color: var(--color-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.friendInfo {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.emptyFriends {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 13.5px;
+  padding: 24px 0;
+}
+
+/* ══════════════════════════════════════════
+   SKELETON / LOADING
+═══════════════════════════════════════════ */
+.skeleton {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 28px;
+  display: flex;
+  gap: 22px;
+  align-items: flex-start;
+}
+
+.skeletonCircle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, #e8f0ec 25%, #d6e6dc 50%, #e8f0ec 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonLines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+.skeletonLine {
+  height: 13px;
+  border-radius: 7px;
+  background: linear-gradient(90deg, #e8f0ec 25%, #d6e6dc 50%, #e8f0ec 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonLg { width: 45%; height: 22px; }
+.skeletonMd { width: 30%; }
+.skeletonSm { width: 70%; }
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ══════════════════════════════════════════
+   PROFILE POSTS
+═══════════════════════════════════════════ */
+.postsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.postsSectionTitle {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  color: var(--color-brand);
+  letter-spacing: -0.2px;
+  padding: 0 4px;
+}
+
+.postsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .page { grid-column: 2 / -1; }
+}
+
+@media (max-width: 900px) {
+  .content { grid-template-columns: 1fr; }
+  .friendsGrid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .page { grid-column: 1 / -1; }
+
+  .headerCard {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .metaRow { justify-content: center; }
+  .actions { align-items: center; }
+  .friendsGrid { grid-template-columns: 1fr; }
+}

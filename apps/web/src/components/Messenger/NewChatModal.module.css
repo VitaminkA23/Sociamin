@@ -1,0 +1,224 @@
+/* ══════════════════════════════════════════
+   NEW CHAT MODAL
+═══════════════════════════════════════════ */
+
+/* ── Overlay ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 61, 48, 0.45);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 20px;
+  animation: fadeIn 150ms ease both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Modal container ── */
+.modal {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  box-shadow:
+    0 24px 64px rgba(31, 90, 73, 0.22),
+    0 4px 16px rgba(31, 90, 73, 0.12);
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalIn 200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(-12px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  color: var(--color-brand);
+  letter-spacing: -0.3px;
+}
+
+.closeBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-muted);
+  transition: background 130ms ease, color 130ms ease;
+  flex-shrink: 0;
+}
+
+.closeBtn:hover {
+  background: rgba(31, 90, 73, 0.08);
+  color: var(--color-brand);
+}
+
+/* ── Search bar ── */
+.searchWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 16px 8px;
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-input);
+  padding: 10px 14px;
+  transition: border-color 150ms ease;
+  flex-shrink: 0;
+}
+
+.searchWrap:focus-within {
+  border-color: var(--color-brand-light);
+}
+
+.searchIcon {
+  color: var(--color-muted);
+  flex-shrink: 0;
+}
+
+.searchInput {
+  flex: 1;
+  background: none;
+  border: none;
+  font-size: 13.5px;
+  color: var(--color-text);
+  min-width: 0;
+}
+
+.searchInput::placeholder {
+  color: var(--color-placeholder);
+}
+
+/* ── Results list ── */
+.results {
+  overflow-y: auto;
+  padding: 6px 8px 14px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+  min-height: 140px;
+  max-height: 340px;
+}
+
+/* ── Hint / empty text ── */
+.hint,
+.empty {
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 13.5px;
+  padding: 36px 24px;
+  line-height: 1.5;
+}
+
+.hint {
+  color: var(--color-placeholder);
+}
+
+/* ── User result row ── */
+.resultItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  text-align: left;
+  transition: background 120ms ease;
+  position: relative;
+}
+
+.resultItem:hover {
+  background: rgba(211, 228, 219, 0.7);
+}
+
+.resultItem:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.resultInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.resultName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resultSub {
+  font-size: 12px;
+  color: var(--color-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Skeleton ── */
+.skeletonItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+}
+
+.skeletonAvatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, #e8f0ec 25%, #d6e6dc 50%, #e8f0ec 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonLines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.skeletonLine {
+  height: 11px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #e8f0ec 25%, #d6e6dc 50%, #e8f0ec 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonLineLg { width: 55%; }
+.skeletonLineSm { width: 75%; height: 9px; }
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

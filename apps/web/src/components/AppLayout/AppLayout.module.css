@@ -1,0 +1,16 @@
+/* Root stacking context for the entire application */
+.root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+/* Grows to fill the space between Header and Footer.
+   display: flex + flex-direction: column lets LoginPage and Shell
+   use flex: 1 to claim full remaining height. */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

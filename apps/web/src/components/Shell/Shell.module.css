@@ -1,0 +1,89 @@
+/* ══════════════════════════════════════════
+   PAGE SHELL
+═══════════════════════════════════════════ */
+/* AppLayout (root) owns min-height and background.
+   Shell only needs padding for the fixed mobile nav. */
+.page {
+  flex: 1;
+  padding-bottom: 80px;
+}
+
+/* ══════════════════════════════════════════
+   3-COLUMN GRID
+═══════════════════════════════════════════ */
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr 260px;
+  gap: 20px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px 20px;
+  align-items: start;
+}
+
+/* ══════════════════════════════════════════
+   MOBILE BOTTOM NAV
+═══════════════════════════════════════════ */
+.mobileNav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: var(--color-white);
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -4px 20px rgba(31, 90, 73, 0.08);
+  z-index: 100;
+}
+
+.mobileNavBtn {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--color-muted);
+  transition: color 150ms ease;
+  border-radius: 0;
+}
+
+.mobileNavBtnActive { color: var(--color-brand); }
+
+.mobileNavLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+
+/* Tablet 768–1100px — 2 col, right panel hidden */
+@media (max-width: 1100px) {
+  .layout {
+    grid-template-columns: 68px 1fr;
+  }
+
+  /* Hide 3rd grid child (RightPanel) on feed page */
+  .layout > :nth-child(3) {
+    display: none;
+  }
+}
+
+/* Mobile <768px — single column, bottom nav */
+@media (max-width: 768px) {
+  .page { padding-bottom: 64px; }
+
+  .layout {
+    grid-template-columns: 1fr;
+    padding: 16px 12px;
+    gap: 14px;
+  }
+
+  .mobileNav { display: flex; }
+}

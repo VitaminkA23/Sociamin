@@ -1,0 +1,327 @@
+/* ══════════════════════════════════════════
+   SETTINGS PAGE — spans columns 2 → end
+═══════════════════════════════════════════ */
+.page {
+  grid-column: 2 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+/* ── Page header ── */
+.header {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 28px 28px 22px;
+}
+
+.pageTitle {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  color: var(--color-brand);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.pageSubtitle {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+/* ── Tab bar ── */
+.tabBar {
+  display: flex;
+  gap: 4px;
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 6px;
+}
+
+.tabBtn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 20px;
+  border-radius: 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-muted);
+  transition: background 150ms ease, color 150ms ease;
+  white-space: nowrap;
+}
+
+.tabBtn:hover {
+  background: var(--color-bg);
+  color: var(--color-brand-light);
+}
+
+.tabBtnActive {
+  background: var(--color-brand);
+  color: #fff;
+}
+
+.tabBtnActive:hover {
+  background: var(--color-brand-mid);
+  color: #fff;
+}
+
+/* ── Tab content wrapper ── */
+.tabContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Card ── */
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 26px 28px;
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-serif);
+  font-size: 19px;
+  color: var(--color-brand);
+  letter-spacing: -0.2px;
+  margin-bottom: 22px;
+}
+
+/* ── Form elements ── */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 16px;
+}
+
+.formGroup:last-of-type { margin-bottom: 0; }
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-brand-light);
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.input {
+  width: 100%;
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-input);
+  padding: 10px 13px;
+  font-size: 13.5px;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  transition: border-color 150ms ease;
+}
+
+.input:focus { border-color: var(--color-brand-light); outline: none; }
+.input::placeholder { color: var(--color-placeholder); }
+
+/* Password field wrapper */
+.pwWrap {
+  position: relative;
+}
+
+.pwWrap .input {
+  padding-right: 42px;
+}
+
+.eyeBtn {
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-muted);
+  display: flex;
+  align-items: center;
+  transition: color 130ms;
+}
+
+.eyeBtn:hover { color: var(--color-brand); }
+
+.saveRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* ── Buttons ── */
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 22px;
+  border-radius: var(--radius-btn);
+  background: var(--color-brand);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  transition: background 150ms ease, opacity 150ms ease;
+}
+
+.btnPrimary:hover:not(:disabled) { background: var(--color-brand-mid); }
+.btnPrimary:disabled { opacity: 0.55; cursor: default; }
+
+/* ── Status messages ── */
+.statusSuccess {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-brand-light);
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: rgba(31, 90, 73, 0.07);
+  border-radius: 10px;
+}
+
+.statusError {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-error);
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: rgba(192, 57, 43, 0.07);
+  border-radius: 10px;
+}
+
+/* ── Settings list (toggle rows) ── */
+.settingsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.settingRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.settingRow:last-child { border-bottom: none; }
+
+.settingInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.settingLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.settingDesc {
+  font-size: 12.5px;
+  color: var(--color-muted);
+  line-height: 1.5;
+}
+
+/* ── iOS-style Toggle Switch ── */
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 26px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.toggleSlider {
+  position: absolute;
+  inset: 0;
+  background: var(--color-border);
+  border-radius: 26px;
+  transition: background 200ms ease;
+}
+
+.toggleSlider::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 3px;
+  bottom: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 200ms ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+}
+
+.toggle input:checked + .toggleSlider {
+  background: var(--color-brand);
+}
+
+.toggle input:checked + .toggleSlider::before {
+  transform: translateX(20px);
+}
+
+.toggle input:disabled + .toggleSlider {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Misc ── */
+.hint {
+  font-size: 12px;
+  color: var(--color-placeholder);
+  margin-top: 16px;
+}
+
+.privacyBanner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 10px 14px;
+  background: rgba(31, 90, 73, 0.07);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-brand-light);
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .page { grid-column: 2 / -1; }
+}
+
+@media (max-width: 768px) {
+  .page { grid-column: 1 / -1; }
+
+  .header { padding: 20px; }
+
+  .tabBar {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabBar::-webkit-scrollbar { display: none; }
+
+  .card { padding: 20px; }
+}

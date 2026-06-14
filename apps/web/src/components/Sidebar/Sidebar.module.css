@@ -1,0 +1,140 @@
+/* ── Shell ── */
+.sidebar {
+  position: sticky;
+  /* Offset below the sticky Header so the sidebar doesn't slide under it */
+  top: calc(var(--header-height) + 16px);
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--color-white);
+  border-radius: 20px;
+  padding: 20px 14px;
+  box-shadow: var(--shadow-card);
+}
+
+/* ── Brand ── */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 8px 16px;
+  border-bottom: 1px solid rgba(176, 206, 188, 0.5);
+  margin-bottom: 4px;
+}
+
+.brandName {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  color: var(--color-brand);
+  letter-spacing: -0.2px;
+}
+
+/* ── Nav ── */
+.nav { flex: 1; }
+
+.navList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Applies to both <button> and <a> (NavLink) nav items */
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: 12px;
+  color: var(--color-muted);
+  font-size: 14.5px;
+  font-weight: 500;
+  transition: background 150ms ease, color 150ms ease;
+  text-align: left;
+  text-decoration: none;
+}
+
+.navItem:hover {
+  background: rgba(31, 90, 73, 0.07);
+  color: var(--color-brand);
+}
+
+.navItemActive {
+  background: rgba(31, 90, 73, 0.10);
+  color: var(--color-brand);
+  font-weight: 600;
+}
+
+.navLabel { line-height: 1; }
+
+/* ── Footer ── */
+.footer {
+  padding-top: 8px;
+  border-top: 1px solid rgba(176, 206, 188, 0.5);
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.profileCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 12px;
+  background: rgba(211, 228, 219, 0.45);
+}
+
+.profileInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profileName {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-brand);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profileSub {
+  font-size: 11px;
+  color: var(--color-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logoutBtn {
+  color: var(--color-muted);
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 150ms ease;
+  flex-shrink: 0;
+}
+
+.logoutBtn:hover { color: var(--color-brand); }
+
+/* ── Compact mode (tablet 768-1100px) ── */
+@media (max-width: 1100px) {
+  .sidebar { padding: 16px 10px; }
+  .brand { padding-bottom: 14px; }
+  .brandName { display: none; }
+  .navLabel { display: none; }
+  .navItem { gap: 0; justify-content: center; padding: 12px 10px; }
+  .profileInfo { display: none; }
+  .profileCard { justify-content: center; }
+}
+
+/* ── Hidden on mobile (bottom nav takes over) ── */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+}

@@ -1,0 +1,65 @@
+/* ══════════════════════════════════════════
+   CHAT INPUT BAR
+═══════════════════════════════════════════ */
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-white);
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  padding: 11px 18px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 24px;
+  font-size: 14px;
+  color: var(--color-text);
+  background: var(--color-bg);
+  transition: border-color 150ms ease, background 150ms ease;
+  min-width: 0;
+}
+
+.input:focus {
+  border-color: var(--color-brand-light);
+  background: var(--color-white);
+}
+
+.input::placeholder {
+  color: var(--color-placeholder);
+}
+
+.input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sendBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-brand);
+  color: #fff;
+  flex-shrink: 0;
+  transition: background 150ms ease, transform 100ms ease;
+}
+
+.sendBtn:hover:not(:disabled) {
+  background: var(--color-brand-mid);
+  transform: scale(1.05);
+}
+
+.sendBtn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.sendBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}

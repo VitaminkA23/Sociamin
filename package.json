@@ -1,0 +1,24 @@
+{
+  "name": "vitamina",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently --kill-others-on-fail -n \"backend,web,admin\" -c \"blue,green,magenta\" \"pnpm --filter @vitamina/backend dev\" \"pnpm --filter @vitamina/web dev\" \"pnpm --filter @vitamina/admin dev\"",
+    "build": "pnpm -r build",
+    "start": "concurrently --kill-others-on-fail -n \"backend,web,admin\" -c \"blue,green,magenta\" \"pnpm --filter @vitamina/backend start\" \"pnpm --filter @vitamina/web start\" \"pnpm --filter @vitamina/admin start\"",
+    "typecheck": "pnpm -r typecheck",
+    "clean": "pnpm -r clean && rm -rf node_modules",
+    "db:up": "docker compose -f infra/docker-compose.yml up -d",
+    "db:down": "docker compose -f infra/docker-compose.yml down",
+    "db:migrate": "pnpm --filter @vitamina/backend db:migrate",
+    "db:studio": "pnpm --filter @vitamina/backend db:studio"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.5.0"
+  }
+}

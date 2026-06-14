@@ -1,0 +1,357 @@
+/* ══════════════════════════════════════════
+   PAGE SHELL
+═══════════════════════════════════════════ */
+/* AppLayout provides the background and overall height.
+   LoginPage just centers its card within the available flex space. */
+.page {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* ══════════════════════════════════════════
+   TWO-COLUMN LAYOUT
+═══════════════════════════════════════════ */
+.layout {
+  display: flex;
+  align-items: center;
+  gap: 72px;
+  width: 100%;
+  max-width: 960px;
+}
+
+/* ══════════════════════════════════════════
+   LEFT SIDE — Brand
+═══════════════════════════════════════════ */
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  flex: 1;
+  min-width: 0;
+}
+
+.logoWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 22px;
+  box-shadow: 0 4px 20px rgba(31, 90, 73, 0.12);
+  backdrop-filter: blur(6px);
+}
+
+.brandName {
+  font-family: var(--font-serif);
+  font-size: 52px;
+  font-weight: 400;
+  line-height: 1.0;
+  color: var(--color-brand);
+  letter-spacing: -0.5px;
+}
+
+.brandNameSymbol {
+  display: inline-block;
+  font-style: italic;
+  transform: scaleY(-1);
+  /* Flip the V to resemble ∀ while staying in the serif font */
+  line-height: 0;
+  vertical-align: -0.08em;
+}
+
+.slogan {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--color-muted);
+  line-height: 1.5;
+  max-width: 260px;
+}
+
+.decorDots {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.decorDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-brand);
+  opacity: 0.2;
+}
+
+.decorDot:first-child {
+  opacity: 0.6;
+}
+
+.decorDot:nth-child(2) {
+  opacity: 0.35;
+}
+
+/* ══════════════════════════════════════════
+   RIGHT SIDE — Login Card
+═══════════════════════════════════════════ */
+.cardWrap {
+  flex: 0 0 auto;
+  width: 420px;
+}
+
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: 48px 44px 44px;
+  box-shadow: var(--shadow-card);
+}
+
+/* ── Card header ── */
+.cardTitle {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--color-brand);
+  margin-bottom: 6px;
+  line-height: 1.1;
+}
+
+.cardSubtitle {
+  font-size: 14px;
+  color: var(--color-muted);
+  margin-bottom: 32px;
+}
+
+/* ── Form ── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--color-brand-light);
+}
+
+.input {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 15px;
+  color: var(--color-text);
+  background: #F7FAF9;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-input);
+  transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.input::placeholder {
+  color: var(--color-placeholder);
+  font-weight: 400;
+}
+
+.input:focus {
+  border-color: var(--color-brand-mid);
+  background: var(--color-white);
+  box-shadow: 0 0 0 3px rgba(31, 90, 73, 0.08);
+}
+
+.inputError {
+  border-color: var(--color-error);
+  background: #FEF6F5;
+}
+
+.inputError:focus {
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.08);
+}
+
+.fieldError {
+  font-size: 12px;
+  color: var(--color-error);
+  padding-left: 2px;
+}
+
+/* ── Form-level error banner ── */
+.formError {
+  padding: 12px 16px;
+  background: #FEF6F5;
+  border: 1px solid #F5B7B1;
+  border-radius: 10px;
+  font-size: 13px;
+  color: var(--color-error);
+  text-align: center;
+}
+
+/* ── Actions ── */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.btnPrimary {
+  width: 100%;
+  padding: 16px;
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: var(--radius-btn);
+  transition: background-color 180ms ease, transform 100ms ease, box-shadow 180ms ease;
+  box-shadow: 0 4px 16px rgba(233, 184, 118, 0.40);
+}
+
+.btnPrimary:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+  box-shadow: 0 6px 20px rgba(233, 184, 118, 0.50);
+}
+
+.btnPrimary:active:not(:disabled) {
+  transform: scale(0.985);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btnLoading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.forgotLink {
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-brand-mid);
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 150ms ease;
+  background: none;
+  border: none;
+  padding: 2px;
+  font-family: inherit;
+}
+
+.forgotLink:hover {
+  color: var(--color-brand);
+  text-decoration: underline;
+}
+
+/* ── Divider ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0;
+  color: var(--color-placeholder);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* ── Create Account button (also used as a <Link> → needs display:block) ── */
+.btnSecondary {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background-color: transparent;
+  color: var(--color-accent-hover);
+  border: 2px solid var(--color-accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: var(--radius-btn);
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.btnSecondary:hover {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  border-color: var(--color-accent);
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE — tablet / mobile
+═══════════════════════════════════════════ */
+@media (max-width: 780px) {
+  .layout {
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .brand {
+    align-items: center;
+    text-align: center;
+  }
+
+  .slogan {
+    max-width: 320px;
+    text-align: center;
+  }
+
+  .brandName {
+    font-size: 42px;
+  }
+
+  .cardWrap {
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 16px;
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+
+  .card {
+    padding: 36px 28px 32px;
+  }
+
+  .brandName {
+    font-size: 36px;
+  }
+}

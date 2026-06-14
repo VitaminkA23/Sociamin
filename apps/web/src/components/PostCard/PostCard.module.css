@@ -1,0 +1,360 @@
+/* ── Card shell ── */
+.card {
+  background: var(--color-white);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 200ms ease;
+}
+
+.card:hover {
+  box-shadow: 0 10px 52px rgba(31, 90, 73, 0.12), 0 3px 14px rgba(31, 90, 73, 0.07);
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px 0;
+}
+
+.headerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.authorName {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-brand);
+  line-height: 1.2;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+/* ── Post owner menu (edit / delete) ── */
+.postMenu {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.menuBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  color: var(--color-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 130ms, background 130ms;
+}
+
+.menuBtn:hover {
+  color: var(--color-brand);
+  background: rgba(31, 90, 73, 0.08);
+}
+
+.menuBtnDanger:hover {
+  color: var(--color-error);
+  background: rgba(192, 57, 43, 0.08);
+}
+
+/* ── Inline edit ── */
+.editWrap { padding: 0; }
+
+.editArea {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  border: 1.5px solid var(--color-border);
+  border-radius: 10px;
+  padding: 10px 13px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.55;
+  transition: border-color 150ms;
+}
+
+.editArea:focus {
+  border-color: var(--color-brand-mid);
+  outline: none;
+  background: #fff;
+}
+
+.editActions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.editCancel {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-muted);
+  border: 1.5px solid var(--color-border);
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 130ms, border-color 130ms;
+}
+
+.editCancel:hover { color: var(--color-brand); border-color: var(--color-brand-light); }
+
+.editSave {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-brand);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 130ms, opacity 130ms;
+}
+
+.editSave:hover:not(:disabled) { background: var(--color-brand-mid); }
+.editSave:disabled { opacity: 0.6; cursor: default; }
+
+/* ── Content ── */
+.content { padding: 14px 20px 0; }
+
+.text {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--color-text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.imageWrap {
+  margin-top: 14px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(176, 206, 188, 0.4);
+}
+
+.postImage {
+  display: block;
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  transition: opacity 200ms ease;
+}
+
+/* ── Stats row ── */
+.stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px 0;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.statHeart {
+  color: #E05C5C;
+  fill: #E05C5C;
+}
+
+.statBtn {
+  font-size: 13px;
+  color: var(--color-muted);
+  transition: color 150ms ease;
+}
+
+.statBtn:hover { color: var(--color-brand); text-decoration: underline; }
+
+/* ── Action bar ── */
+.actions {
+  display: flex;
+  gap: 4px;
+  padding: 8px 12px;
+  margin-top: 2px;
+  border-top: 1px solid rgba(176, 206, 188, 0.4);
+}
+
+.actionBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 9px 8px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-muted);
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.actionBtn:hover {
+  background: rgba(31, 90, 73, 0.07);
+  color: var(--color-brand);
+}
+
+.actionBtn:disabled { cursor: not-allowed; }
+
+.actionBtnLiked {
+  color: #E05C5C;
+}
+
+.actionBtnLiked:hover {
+  background: rgba(224, 92, 92, 0.08);
+  color: #C94040;
+}
+
+.actionBtnActive {
+  color: var(--color-brand);
+  background: rgba(31, 90, 73, 0.07);
+}
+
+/* ── Heart icon like animation ── */
+.heartIcon {
+  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1), color 150ms ease;
+}
+
+.heartFilled {
+  fill: #E05C5C;
+  color: #E05C5C;
+  transform: scale(1.15);
+}
+
+/* ── Comment section ── */
+.commentSection {
+  padding: 0 20px 16px;
+  border-top: 1px solid rgba(176, 206, 188, 0.35);
+  animation: slideDown 200ms ease both;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.commentList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 14px 0 16px;
+}
+
+.comment {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.commentBubble {
+  flex: 1;
+  background: #F2F7F5;
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+
+.commentAuthor {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-brand);
+  margin-bottom: 3px;
+}
+
+.commentText {
+  font-size: 14px;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.commentTime {
+  display: block;
+  font-size: 11px;
+  color: var(--color-muted);
+  margin-top: 5px;
+}
+
+.noComments {
+  font-size: 13.5px;
+  color: var(--color-muted);
+  text-align: center;
+  padding: 14px 0 10px;
+}
+
+/* ── Comment form ── */
+.commentForm {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.commentInputWrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: #F2F7F5;
+  border: 1.5px solid var(--color-border);
+  border-radius: 20px;
+  padding: 0 6px 0 14px;
+  transition: border-color 180ms ease;
+}
+
+.commentInputWrap:focus-within {
+  border-color: var(--color-brand-mid);
+  background: white;
+}
+
+.commentInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: var(--color-text);
+  padding: 9px 0;
+}
+
+.commentInput::placeholder { color: var(--color-placeholder); }
+
+.sendBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 150ms ease, transform 100ms ease;
+}
+
+.sendBtn:hover:not(:disabled) { background: var(--color-accent-hover); }
+.sendBtn:active:not(:disabled) { transform: scale(0.9); }
+.sendBtn:disabled { opacity: 0.4; cursor: not-allowed; }

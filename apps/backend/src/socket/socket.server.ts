@@ -106,3 +106,6 @@ export function createSocketServer(httpServer: HttpServer): ChatServer {
 
   return io;
 }
+
+export class registerChatHandlers {
+}

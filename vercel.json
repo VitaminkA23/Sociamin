@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm install -g pnpm@9.1.0 && pnpm install --frozen-lockfile",
+  "installCommand": "pnpm install --no-frozen-lockfile",
   "buildCommand": "pnpm --filter @vitamina/web build",
   "outputDirectory": "apps/web/dist",
   "rewrites": [

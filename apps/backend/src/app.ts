@@ -1,5 +1,4 @@
-import express, { type Application } from "express";
-import cors from "cors";
+import express, { type Application, type Request, type Response, type NextFunction } from "express";
 import path from "path";
 import { env } from "./config/env.js";
 import authRoutes from "./modules/auth/auth.routes.js";
@@ -14,18 +13,15 @@ import { errorHandler, notFoundHandler } from "./middleware/error.middleware.js"
 
 const app: Application = express();
 
-// Parse comma-separated origins, e.g. "https://a.vercel.app,https://b.vercel.app"
-const allowedOrigins = env.FRONTEND_URL.split(",").map((o) => o.trim());
-const corsOrigin = allowedOrigins.length === 1 ? (allowedOrigins[0] ?? "*") : allowedOrigins;
-
-app.use(
-  cors({
-    origin: corsOrigin,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const origin = req.headers.origin;
+  if (origin) res.setHeader("Access-Control-Allow-Origin", origin);
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
+  if (req.method === "OPTIONS") { res.sendStatus(200); return; }
+  next();
+});
 
 const uploadsDir = env.UPLOADS_DIR ?? path.join(process.cwd(), "uploads");
 app.use("/uploads", express.static(uploadsDir));

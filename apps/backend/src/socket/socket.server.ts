@@ -2,7 +2,6 @@ import { Server } from "socket.io";
 import type { Server as HttpServer } from "http";
 import { verifyToken } from "../utils/jwt.js";
 import { prisma } from "../config/prisma.js";
-import { env } from "../config/env.js";
 import type { MessageItem } from "../modules/chat/chat.types.js";
 
 // Discriminated union — no optional fields, so exactOptionalPropertyTypes is satisfied
@@ -59,7 +58,6 @@ export type ChatServer = Server<
 >;
 
 export function createSocketServer(httpServer: HttpServer): ChatServer {
-  const socketOrigins = env.FRONTEND_URL.split(",").map((o) => o.trim());
   const io = new Server<
     ClientToServerEvents,
     ServerToClientEvents,
@@ -67,7 +65,9 @@ export function createSocketServer(httpServer: HttpServer): ChatServer {
     SocketData
   >(httpServer, {
     cors: {
-      origin: socketOrigins.length === 1 ? (socketOrigins[0] ?? "*") : socketOrigins,
+      origin: (_origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+        callback(null, true);
+      },
       methods: ["GET", "POST"],
       credentials: true,
     },
@@ -105,7 +105,4 @@ export function createSocketServer(httpServer: HttpServer): ChatServer {
   });
 
   return io;
-}
-
-export class registerChatHandlers {
 }

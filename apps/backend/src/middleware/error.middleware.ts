@@ -29,9 +29,7 @@ export const errorHandler: ErrorRequestHandler = (
   const isProduction = env.NODE_ENV === "production";
   const message = err instanceof Error ? err.message : "An unexpected error occurred";
 
-  if (!isProduction) {
-    console.error("[Unhandled Error]", err);
-  }
+  console.error("[Unhandled Error]", err);
 
   res.status(500).json({
     success: false,

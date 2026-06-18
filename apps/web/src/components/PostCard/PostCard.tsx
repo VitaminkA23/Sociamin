@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Heart, MessageCircle, Share2, Send, Pencil, Trash2, X, Check } from "lucide-react";
 import { Avatar } from "../Avatar/Avatar";
 import { useAuth } from "../../context/AuthContext";
-import { api } from "../../lib/api";
+import { api, toImageUrl } from "../../lib/api";
 import { getDisplayName, formatRelativeTime } from "../../utils/format";
 import type { Post, Comment } from "../../types/post";
 import type { ApiComment, PagedResponse } from "../../types/api";
@@ -211,7 +211,7 @@ export function PostCard({ post, onToggleLike, onAddComment, onUpdatePost, onDel
         {post.imageUrl && (
           <div className={styles.imageWrap}>
             <img
-              src={post.imageUrl}
+              src={toImageUrl(post.imageUrl) ?? post.imageUrl}
               alt={`Post by ${authorName}`}
               className={styles.postImage}
               loading="lazy"

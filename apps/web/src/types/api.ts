@@ -92,6 +92,7 @@ export interface ApiChatRoom {
     isRead: boolean;
     sender: { id: string; email: string | null; phoneNumber: string | null; displayName: string | null; avatarUrl: string | null };
   } | null;
+  unreadCount: number;
 }
 
 export interface ApiMessage {

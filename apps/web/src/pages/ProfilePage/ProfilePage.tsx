@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { useProfile } from "../../hooks/useProfile";
 import { useAuth } from "../../context/AuthContext";
-import { api } from "../../lib/api";
+import { api, toImageUrl } from "../../lib/api";
 import { Avatar } from "../../components/Avatar/Avatar";
 import { PostCard } from "../../components/PostCard/PostCard";
 import { getDisplayName, getAvatarColor, getInitials } from "../../utils/format";
@@ -59,7 +59,7 @@ function ProfileAvatar({
   if (user.avatarUrl) {
     return (
       <div className={styles.avatarCircle} style={{ width: size, height: size }}>
-        <img src={user.avatarUrl} alt={getDisplayName(user)} className={styles.avatarImg} />
+        <img src={toImageUrl(user.avatarUrl) ?? undefined} alt={getDisplayName(user)} className={styles.avatarImg} />
       </div>
     );
   }

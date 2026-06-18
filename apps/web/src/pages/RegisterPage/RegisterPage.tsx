@@ -78,8 +78,15 @@ export function RegisterPage() {
                 )}
               </div>
 
+              {/* ── Contact — email OR phone (at least one required) ── */}
+              <div className={styles.sectionDivider}>
+                <span>Sign in with — choose one or both</span>
+              </div>
+
               <div className={styles.fieldGroup}>
-                <label className={styles.label} htmlFor="email">Email Address</label>
+                <label className={styles.label} htmlFor="email">
+                  Email Address
+                </label>
                 <input
                   id="email"
                   type="email"
@@ -98,10 +105,11 @@ export function RegisterPage() {
                 )}
               </div>
 
+              <div className={styles.orDivider} aria-hidden="true">or</div>
+
               <div className={styles.fieldGroup}>
                 <label className={styles.label} htmlFor="phoneNumber">
                   Phone Number
-                  <span className={styles.labelOptional}> — optional</span>
                 </label>
                 <input
                   id="phoneNumber"

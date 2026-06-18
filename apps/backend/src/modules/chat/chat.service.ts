@@ -40,6 +40,13 @@ export async function getUserChatRooms(userId: string): Promise<ChatRoomItem[]> 
             take: 1,
             select: messageSelect,
           },
+          _count: {
+            select: {
+              messages: {
+                where: { senderId: { not: userId }, isRead: false },
+              },
+            },
+          },
         },
       },
     },
@@ -52,6 +59,7 @@ export async function getUserChatRooms(userId: string): Promise<ChatRoomItem[]> 
       updatedAt: chatRoom.updatedAt,
       participants: chatRoom.participants.map((p) => p.user),
       latestMessage: chatRoom.messages[0] ?? null,
+      unreadCount: chatRoom._count.messages,
     }))
     .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
 }
@@ -187,6 +195,7 @@ export async function createOrGetDMRoom(
       updatedAt: existing.updatedAt,
       participants: existing.participants.map((p) => p.user),
       latestMessage: existing.messages[0] ?? null,
+      unreadCount: 0,
     };
   }
 
@@ -210,6 +219,7 @@ export async function createOrGetDMRoom(
     updatedAt: room.updatedAt,
     participants: room.participants.map((p) => p.user),
     latestMessage: null,
+    unreadCount: 0,
   };
 }
 

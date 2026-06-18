@@ -22,7 +22,21 @@ function MessageBubble({ message, isOwn, showAvatar, onEdit, onDelete }: Message
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(message.textContent);
   const [isBusy, setIsBusy] = useState(false);
+  const [actionsOpen, setActionsOpen] = useState(false);
+  const actionsRef = useRef<HTMLDivElement>(null);
   const canModify = isOwn && !message.isRead;
+
+  // Close action menu when clicking outside
+  useEffect(() => {
+    if (!actionsOpen) return;
+    function onDown(e: MouseEvent) {
+      if (actionsRef.current && !actionsRef.current.contains(e.target as Node)) {
+        setActionsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [actionsOpen]);
 
   // Keep editText in sync if the message is updated externally via socket
   useEffect(() => {
@@ -83,16 +97,17 @@ function MessageBubble({ message, isOwn, showAvatar, onEdit, onDelete }: Message
           ) : (
             <>
               <div
-                className={`${styles.bubble} ${isOwn ? styles.bubbleOwn : styles.bubbleOther}`}
+                className={`${styles.bubble} ${isOwn ? styles.bubbleOwn : styles.bubbleOther} ${canModify ? styles.bubbleClickable : ""}`}
                 aria-label={isOwn ? "Your message" : `Message from ${getDisplayName(message.sender)}`}
+                onClick={canModify ? () => setActionsOpen((v) => !v) : undefined}
               >
                 {message.textContent}
               </div>
-              {canModify && (
-                <div className={styles.msgActions}>
+              {canModify && actionsOpen && (
+                <div ref={actionsRef} className={styles.msgActions}>
                   <button
                     className={styles.msgActionBtn}
-                    onClick={() => setIsEditing(true)}
+                    onClick={() => { setActionsOpen(false); setIsEditing(true); }}
                     disabled={isBusy}
                     title="Edit message"
                   >
@@ -100,7 +115,7 @@ function MessageBubble({ message, isOwn, showAvatar, onEdit, onDelete }: Message
                   </button>
                   <button
                     className={`${styles.msgActionBtn} ${styles.msgActionBtnDelete}`}
-                    onClick={() => void handleDelete()}
+                    onClick={() => { setActionsOpen(false); void handleDelete(); }}
                     disabled={isBusy}
                     title="Delete message"
                   >

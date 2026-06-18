@@ -200,13 +200,15 @@
   position: relative;
 }
 
+/* Shown when actionsOpen=true (click-toggled, not hover) */
 .msgActions {
-  display: none;
+  display: flex;
   gap: 4px;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   left: calc(100% + 6px);
+  z-index: 10;
 }
 
 .bubbleRowOwn .msgActions {
@@ -214,8 +216,9 @@
   right: calc(100% + 6px);
 }
 
-.bubbleWrap:hover .msgActions {
-  display: flex;
+/* Subtle cursor hint that own unread messages can be tapped */
+.bubbleClickable {
+  cursor: pointer;
 }
 
 .msgActionBtn {

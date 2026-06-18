@@ -16,6 +16,7 @@ export const registerSchema = z
     email: emailSchema.optional(),
     phoneNumber: phoneSchema.optional(),
     password: passwordSchema,
+    displayName: z.string().trim().min(2, "Name must be at least 2 characters").max(60).optional(),
   })
   .refine((data) => data.email !== undefined || data.phoneNumber !== undefined, {
     message: "Either email or phone number is required",
@@ -44,6 +45,7 @@ export interface SafeUser {
   id: string;
   email: string | null;
   phoneNumber: string | null;
+  displayName: string | null;
   bio: string | null;
   avatarUrl: string | null;
   location: string | null;

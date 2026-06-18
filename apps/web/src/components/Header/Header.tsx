@@ -5,6 +5,7 @@ import { Logo } from "../Logo/Logo";
 import { Avatar } from "../Avatar/Avatar";
 import { useAuth } from "../../context/AuthContext";
 import { useNotifications } from "../Notifications/NotificationProvider";
+import { useUnreadMessages } from "../../hooks/useUnreadMessages";
 import { getDisplayName, formatRelativeTime } from "../../utils/format";
 import { api } from "../../lib/api";
 import type { ApiUser, UsersSearchResponse } from "../../types/api";
@@ -34,6 +35,7 @@ export function Header() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { notifications, unreadCount, markAllRead, clearAll } = useNotifications();
+  const unreadMessages = useUnreadMessages(pathname);
   const [menuOpen, setMenuOpen] = useState(false);
 
   // ── Settings dropdown ──────────────────────────────────────────────────────
@@ -195,14 +197,21 @@ export function Header() {
                 <span className={styles.userName}>{getDisplayName(user)}</span>
 
                 {/* Messenger icon button */}
-                <button
-                  className={styles.iconBtn}
-                  onClick={() => navigate("/messenger")}
-                  aria-label="Open Messenger"
-                  title="Messenger"
-                >
-                  <MessageCircle size={19} strokeWidth={1.8} />
-                </button>
+                <div style={{ position: "relative", display: "inline-flex" }}>
+                  <button
+                    className={styles.iconBtn}
+                    onClick={() => navigate("/messenger")}
+                    aria-label={`Open Messenger${unreadMessages > 0 ? ` (${unreadMessages} unread)` : ""}`}
+                    title="Messenger"
+                  >
+                    <MessageCircle size={19} strokeWidth={1.8} />
+                  </button>
+                  {unreadMessages > 0 && (
+                    <span className={styles.notifBadge} aria-hidden="true">
+                      {unreadMessages > 9 ? "9+" : unreadMessages}
+                    </span>
+                  )}
+                </div>
 
                 {/* Notification bell */}
                 <div ref={notifRef} style={{ position: "relative" }}>

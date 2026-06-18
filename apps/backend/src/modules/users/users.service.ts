@@ -28,6 +28,7 @@ export async function searchUsers(q: string, excludeUserId: string): Promise<Saf
       OR: [
         { email: { contains: q, mode: "insensitive" } },
         { phoneNumber: { contains: q, mode: "insensitive" } },
+        { displayName: { contains: q, mode: "insensitive" } },
       ],
     },
     select: safeUserSelect,

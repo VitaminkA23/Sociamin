@@ -107,6 +107,7 @@ export function useRegisterForm() {
 
     try {
       const body: Record<string, string> = { password: values.password };
+      if (values.fullName.trim()) body["displayName"] = values.fullName.trim();
       if (values.email.trim()) body["email"] = values.email.trim();
       if (values.phoneNumber.trim()) body["phoneNumber"] = values.phoneNumber.trim();
 

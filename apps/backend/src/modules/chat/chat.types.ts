@@ -62,6 +62,7 @@ export interface ChatRoomItem {
   updatedAt: Date;
   participants: SafeUser[];
   latestMessage: MessageItem | null;
+  unreadCount: number;
 }
 
 export interface PaginationMeta {

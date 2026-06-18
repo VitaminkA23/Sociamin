@@ -5,10 +5,17 @@ export class ApiError extends Error {
   }
 }
 
-// In development the Vite proxy rewrites /api → http://localhost:4000/api so we use a
-// relative URL. In production VITE_API_URL points to the Render backend and we hit it
-// directly (CORS is configured on the server to allow the Vercel origin).
-const API_BASE = (import.meta.env["VITE_API_URL"] as string | undefined) ?? "";
+// In development the Vite proxy rewrites /api and /uploads → http://localhost:4000 so we
+// use a relative URL. In production VITE_API_URL points to the Render backend.
+export const API_BASE = (import.meta.env["VITE_API_URL"] as string | undefined) ?? "";
+
+// Converts a relative /uploads/... path stored in the DB to an absolute URL so that
+// Vercel (or any other frontend host) can load images from the Render backend.
+export function toImageUrl(path: string | null | undefined): string | null {
+  if (!path) return null;
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  return `${API_BASE}${path}`;
+}
 
 async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   const token = localStorage.getItem("token");

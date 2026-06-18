@@ -1,4 +1,5 @@
 import { getAvatarColor, getInitials } from "../../utils/format";
+import { toImageUrl } from "../../lib/api";
 import type { Author } from "../../types/post";
 
 interface AvatarProps {
@@ -34,9 +35,9 @@ export function Avatar({ author, size = 40, isOnline = false }: AvatarProps) {
         }}
         aria-label={`Avatar for ${initials}`}
       >
-        {author.avatarUrl ? (
+        {toImageUrl(author.avatarUrl) ? (
           <img
-            src={author.avatarUrl}
+            src={toImageUrl(author.avatarUrl)!}
             alt={initials}
             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           />

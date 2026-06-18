@@ -9,6 +9,7 @@ interface UseChatsReturn {
   rooms: ChatRoom[];
   messagesByRoom: Record<string, ChatMessage[]>;
   isLoading: boolean;
+  totalUnread: number;
   joinRoom: (roomId: string) => void;
   sendMessage: (roomId: string, textContent: string) => void;
   createRoom: (targetUserId: string) => Promise<ChatRoom>;
@@ -33,7 +34,7 @@ function toRoom(r: ApiChatRoom): ChatRoom {
           sender: r.latestMessage.sender,
         }
       : null,
-    unreadCount: 0,
+    unreadCount: r.unreadCount ?? 0,
   };
 }
 
@@ -101,7 +102,15 @@ export function useChats(): UseChatsReturn {
         prev
           .map((r) =>
             r.id === roomId
-              ? { ...r, latestMessage: chatMsg, updatedAt: chatMsg.createdAt }
+              ? {
+                  ...r,
+                  latestMessage: chatMsg,
+                  updatedAt: chatMsg.createdAt,
+                  unreadCount:
+                    message.sender.id !== user?.id
+                      ? r.unreadCount + 1
+                      : r.unreadCount,
+                }
               : r,
           )
           .sort(
@@ -196,7 +205,10 @@ export function useChats(): UseChatsReturn {
       joinedRoomsRef.current.add(roomId);
       socket?.emit("join_room", roomId);
 
-      // Mark messages in this room as read whenever the user views it
+      // Mark messages in this room as read and reset local unread badge
+      setRooms((prev) =>
+        prev.map((r) => (r.id === roomId ? { ...r, unreadCount: 0 } : r)),
+      );
       void api.patch<{ success: true }>(`/chats/${roomId}/read`).catch(() => undefined);
 
       if (loadedRoomsRef.current.has(roomId)) return;
@@ -286,5 +298,7 @@ export function useChats(): UseChatsReturn {
     // UI update comes via `message_deleted` socket event broadcast to the room
   }, []);
 
-  return { rooms, messagesByRoom, isLoading, joinRoom, sendMessage, createRoom, editMessage, deleteMessage };
+  const totalUnread = rooms.reduce((acc, r) => acc + r.unreadCount, 0);
+
+  return { rooms, messagesByRoom, isLoading, totalUnread, joinRoom, sendMessage, createRoom, editMessage, deleteMessage };
 }

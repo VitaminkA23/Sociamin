@@ -8,6 +8,7 @@ function toSafeUser(user: {
   id: string;
   email: string | null;
   phoneNumber: string | null;
+  displayName: string | null;
   bio: string | null;
   avatarUrl: string | null;
   location: string | null;
@@ -18,6 +19,7 @@ function toSafeUser(user: {
     id: user.id,
     email: user.email,
     phoneNumber: user.phoneNumber,
+    displayName: user.displayName,
     bio: user.bio,
     avatarUrl: user.avatarUrl,
     location: user.location,
@@ -27,7 +29,7 @@ function toSafeUser(user: {
 }
 
 export async function registerUser(input: RegisterInput): Promise<AuthResponse> {
-  const { email, phoneNumber, password } = input;
+  const { email, phoneNumber, password, displayName } = input;
 
   // Check uniqueness before hashing to fail fast
   if (email) {
@@ -43,8 +45,12 @@ export async function registerUser(input: RegisterInput): Promise<AuthResponse> 
   const passwordHash = await hashPassword(password);
 
   const user = await prisma.user.create({
-    // exactOptionalPropertyTypes: coerce undefined → null for nullable DB columns
-    data: { email: email ?? null, phoneNumber: phoneNumber ?? null, passwordHash },
+    data: {
+      email: email ?? null,
+      phoneNumber: phoneNumber ?? null,
+      displayName: displayName ?? null,
+      passwordHash,
+    },
   });
 
   const token = signToken({ sub: user.id });
@@ -76,7 +82,13 @@ export async function loginUser(input: LoginInput): Promise<AuthResponse> {
 }
 
 export async function getUserById(id: string): Promise<SafeUser> {
-  const user = await prisma.user.findUnique({ where: { id } });
+  const user = await prisma.user.findUnique({
+    where: { id },
+    select: {
+      id: true, email: true, phoneNumber: true, displayName: true,
+      bio: true, avatarUrl: true, location: true, createdAt: true, updatedAt: true,
+    },
+  });
 
   if (!user) throw new AppError(404, "User not found");
 

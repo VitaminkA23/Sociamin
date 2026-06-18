@@ -6,7 +6,7 @@ services:
 
     # Render runs these from the repo root
     buildCommand: pnpm install && pnpm --filter @vitamina/backend build
-    startCommand: cd apps/backend && npx prisma db push && node dist/index.js
+    startCommand: cd apps/backend && node dist/index.js
 
     # Health check — Render uses this to know the service is alive
     healthCheckPath: /health
